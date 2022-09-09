@@ -4,8 +4,8 @@ import (
 	"os"
 
 	docker "github.com/fsouza/go-dockerclient"
-	"github.com/mcuadros/ofelia/core"
-	"github.com/mcuadros/ofelia/middlewares"
+	"github.com/smseidl/ofelia/core"
+	"github.com/smseidl/ofelia/middlewares"
 	logging "github.com/op/go-logging"
 
 	defaults "github.com/mcuadros/go-defaults"

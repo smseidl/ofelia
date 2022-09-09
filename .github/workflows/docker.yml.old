@@ -35,11 +35,11 @@ jobs:
         run: |
           VERSION=$(git describe --always --tags)
           if [ "${{ github.event_name }}" = "release" ]; then
-            TAGS="mcuadros/ofelia:$VERSION,mcuadros/ofelia:latest"
+            TAGS="smseidl/ofelia:$VERSION,smseidl/ofelia:latest"
             # Replace with below once @mcuadros adds the DOCKER_USERNAME secret
             #TAGS="${{secrets.DOCKER_USERNAME}}/ofelia:$VERSION,${{secrets.DOCKER_USERNAME}}/ofelia:latest"
           else
-            TAGS="mcuadros/ofelia:$VERSION,mcuadros/ofelia:development"
+            TAGS="smseidl/ofelia:$VERSION,smseidl/ofelia:development"
             # Replace with below once @mcuadros adds the DOCKER_USERNAME secret
             #TAGS="${{secrets.DOCKER_USERNAME}}/ofelia:$VERSION,${{secrets.DOCKER_USERNAME}}/ofelia:development"
           fi
