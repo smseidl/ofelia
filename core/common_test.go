@@ -227,6 +227,8 @@ func (s *SuiteCommon) TestExecutionStopErrorSkip(c *C) {
 	c.Assert(exe.Failed, Equals, false)
 	c.Assert(exe.Skipped, Equals, true)
 	c.Assert(exe.Error, Equals, nil)
+	fmt.Println("Duration seconds:")
+	fmt.Println(exe.Duration.Seconds())
 	c.Assert(exe.Duration.Seconds() > .0, Equals, true)
 }
 
