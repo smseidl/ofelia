@@ -70,7 +70,7 @@ docker run -it --rm \
         smseidl/ofelia:latest daemon --docker
 ```
 
-Labels format: `ofelia.<JOB_TYPE>.<JOB_NAME>.<JOB_PARAMETER>=<PARAMETER_VALUE>.
+Labels format: `ofelia.<JOB_TYPE>.<JOB_NAME>.<JOB_PARAMETER>=<PARAMETER_VALUE>`.
 This type of configuration supports all the capabilities provided by INI files.
 
 Also, it is possible to configure `job-exec` by setting labels configurations on the target container. To do that, additional label `ofelia.enabled=true` need to be present on the target container.
@@ -115,22 +115,50 @@ services:
       ofelia.job-exec.datecron.command: "uname -a"
 ```
 
+**Ofelia** reads labels of all Docker containers for configuration by default. To apply on a subset of containers only, use the flag `--docker-filter` (or `-f`) similar to the [filtering for `docker ps`](https://docs.docker.com/engine/reference/commandline/ps/#filter). E.g. to apply to current docker compose project only using `label` filter:
+
+```yaml
+version: "3"
+services:
+  ofelia:
+    image: mcuadros/ofelia:latest
+    depends_on:
+      - nginx
+    command: daemon --docker -f label=com.docker.compose.project=${COMPOSE_PROJECT_NAME}
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    labels:
+      ofelia.job-local.my-test-job.schedule: "@every 5s"
+      ofelia.job-local.my-test-job.command: "date"
+
+  nginx:
+    image: nginx
+    labels:
+      ofelia.enabled: "true"
+      ofelia.job-exec.datecron.schedule: "@every 5s"
+      ofelia.job-exec.datecron.command: "uname -a"
+```
+
+
 ### Logging
-**Ofelia** comes with three different logging drivers that can be configured in the `[global]` section:
+**Ofelia** comes with three different logging drivers:
 - `mail` to send mails
 - `save` to save structured execution reports to a directory
 - `slack` to send messages via a slack webhook
+
+These can be configured by setting the options listed below in the `[global]` section of your config.ini, or via docker labels on the `ofelia` container (regardless of where your job will actually be running).
 
 #### Options
 - `smtp-host` - address of the SMTP server.
 - `smtp-port` - port number of the SMTP server.
 - `smtp-user` - user name used to connect to the SMTP server.
 - `smtp-password` - password used to connect to the SMTP server.
+- `smtp-tls-skip-verify` - when `true` ignores certificate signed by unknown authority error.
 - `email-to` - mail address of the receiver of the mail.
 - `email-from` - mail address of the sender of the mail.
 - `mail-only-on-error` - only send a mail if the execution was not successful.
 
-- `save-folder` - directory in which the reports shall be written.
+- `save-folder` - directory in which the reports shall be written (must already exist).
 - `save-only-on-error` - only save a report if the execution was not successful.
 
 - `slack-webhook` - URL of the slack webhook.
