@@ -7,11 +7,12 @@ toolchain go1.22.2
 require (
 	github.com/armon/circbuf v0.0.0-20190214190532-5111143e8da2
 	github.com/bradfitz/go-smtpd v0.0.0-20170404230938-deb6d6237625
-	github.com/docker/docker v26.0.2+incompatible
+	github.com/docker/docker v27.0.3+incompatible
 	github.com/fsouza/go-dockerclient v1.11.0
 	github.com/gobs/args v0.0.0-20210311043657-b8c0b223be93
 	github.com/jessevdk/go-flags v1.5.0
 	github.com/mcuadros/go-defaults v1.2.0
+	github.com/mcuadros/ofelia v0.3.12
 	github.com/mitchellh/mapstructure v1.5.0
 	github.com/op/go-logging v0.0.0-20160315200505-970db520ece7
 	github.com/robfig/cron v1.2.0
