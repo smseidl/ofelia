@@ -2,6 +2,8 @@ module github.com/smseidl/ofelia
 
 go 1.26
 
+toolchain go1.27.4
+
 require (
 	github.com/armon/circbuf v0.0.0-20190214190532-5111143e8da2
 	github.com/bradfitz/go-smtpd v0.0.0-20170404230938-deb6d6237625
