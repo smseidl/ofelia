@@ -1,4 +1,4 @@
-FROM golang:1.22-alpine AS builder
+FROM golang:1.27-alpine AS builder
 
 RUN apk --no-cache add gcc musl-dev
 
@@ -11,7 +11,7 @@ COPY . ${GOPATH}/src/github.com/smseidl/ofelia/
 
 RUN go build -o /go/bin/ofelia .
 
-FROM alpine:3.19
+FROM alpine:3.24
 
 # this label is required to identify container with ofelia running
 LABEL ofelia.service=true
